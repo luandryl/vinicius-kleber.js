@@ -7,10 +7,10 @@ export default class BaseModel {
   /*
     The constructor recives 
     @model => mongoose Schema
-    @key   => string of index key on mongooseSchema
+    @key   => string of Mongoose Object ID
     @data  => transitional data object {
       the purpose of this attribute its to be a two way data bind between the requisition object 
-      that we could store in mongodb and result of query in data stored on mongoDB  
+      that we could store in mongodb or result of query in data stored on mongoDB  
     }
   */
   constructor(model, key, data) {
@@ -35,7 +35,7 @@ export default class BaseModel {
       this.model === StudentSchema, BookSchema, anyStuffSchema ...
 
       so we return a promise to who calls the persist method and who 
-      calls(that is who that actually intend to save data) 
+      calls(that is who actually intend to save data) 
       must have to resolve this `create` promise
 
   */

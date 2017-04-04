@@ -9,10 +9,7 @@ import User from '../models/User.Model'
   More specifcs RESOURCES CONTROL OPERATIONS should be implemented here
 */
 export default class UserController extends BaseController {
-   /*
-    pass the model this class will map 
-    to our parent class (Basecontroller)
-  */
+
   constructor() {
     /*
       Calling the constructor from the parent class
