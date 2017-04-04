@@ -27,8 +27,23 @@ Estrutura do ViniciusKleber.Js
 ```
 ## Coisas Importantes Sobre o ViniciusKleber.Js e seu funcionamento
 
-ViniciusKleber.Js é um cara sistematico, portanto tente sempre manter as coisas do jeito que ele sujere. Vai que ele resolve parar de funcionar só de zoa HUE
+  ViniciusKleber.Js é um cara sistematico, portanto tente sempre manter as coisas do jeito que ele sujere. Vai que ele resolve parar de funcionar só de zoa HUE
 
+## Tudo começa no index.js
+
+  É arquivo ```index.js``` que carregamos as rotas, as configurações basicas e é dado start no servidor(por padrão na porta ```3000```)
+
+### Database
+  A conexão é estabelecia quando o  ```index.js``` é chamado e fica disponivel esperando ser utilizada
+
+  Existem duas formas de conexão
+  + Local
+    * conecta-se com a instancia local do ```mongoDB``` ativa
+    * mongodb://localhost:27017/viniciusKleber-js
+
+  + Production
+    * conecta-se com o ```process.env.MONGODB_URI```
+* * *
 ### Schemas
   Mongoose Schemas, simples assim
 * * *
