@@ -65,34 +65,34 @@ Estrutura do ViniciusKleber.Js
   #### Exemplo de Uso
 
 
-  ``` zsh
+  ``` javascript
     'use strict';
     import User from './schema/User';
     import BaseModel from './Base.Model'
 
     
-      # Model operations to Student
+      //Model operations to Student
    
-      # Because this class extends to BaseModel we inherit from then all the basics data Operations.
-      # More specifcs data operetions should be implemented here
+      //Because this class extends to BaseModel we inherit from then all the basics data Operations.
+// More specifcs data operetions should be implemented here
 
     export default class UserModel extends BaseModel {
       
-        # pass data(req.params or req.body stuff) to our parent class (BaseModel)
+  // pass data(req.params or req.body stuff) to our parent class (BaseModel)
       
       constructor(data) {
         
-          # Calling the constructor from the parent class
-          # and pass to him all the config that him needs to work
+    // Calling the constructor from the parent class
+    // and pass to him all the config that him needs to work
 
-          # so ... magic, your crud its done :3
-          # try with another mongooseSchema, will work 
+    // so ... magic, your crud its done :3
+    // try with another mongooseSchema, will work 
         
         super(User, '_id', data)
       }
       
-      # its simple to perform specifcs querys and data processing besides mongoDB
-      # this exemple we return data from query object pass through method argument
+// its simple to perform specifcs querys and data processing besides mongoDB
+// this exemple we return data from query object pass through method argument
       getById (query) {
         return this.model.find(query).exec()
       }
@@ -120,20 +120,17 @@ Estrutura do ViniciusKleber.Js
       * retorna uma promise que ira modificar os dados com base na query
 * * *
 ### Controllers 
-  Com funcionamento similar as classes ```Models``` , as Controllers são uma interface para gerenciar
-  as ```RESOURCES```* que a api deve oferecer.
-
-  Todas as Controllers devemnomeadas seguindo o padrão ```MyController.Controller.js``` e também devem extender classe ```BaseController```.
-
-  ```BaseController``` por sua vez disponibiliza metodos de controle basicos para minha ```RESOURCE```* baseados no ID do mongoDB . Futuramente BaseController dará suporte a operações mais complexas.
+  Com funcionamento similar as classes ```Models``` , as Controllers são uma interface para gerenciar as ```RESOURCES```* que a api deve oferecer.
+  
+  Todas as Controllers devem ser nomeadas seguindo o padrão ```MyController.Controller.js``` e também devem extender classe ```BaseController```.
 
   Caso precise fazer alguma operação que a interface ```BaseController``` não ofereça suporte, 
   a mesma deverá ser implementada dentro da classe filha tipo ```MyController.Controller.js```
 
-  Como todas as ```Models``` retornam uma ```promise``` que deve ser resolvida por quem invocou um objeto do tipo ```MyModel.Model.js```, se quisermos transitar dados do mongoDB pelas requisições, objetos do tipo ```Model``` devem ser
-  invocados portanto deve-se resolver as ```promises``` retornadas pelas classes  que as ```Models``` retornam neste trecho do codigo
+  Como todas as ```Models``` retornam uma ```promise``` que deve ser resolvida por quem invocou um objeto do tipo ```MyModel.Model.js```, se quisermos transitar dados do mongoDB pelas requisições, as ```promises``` das ```Models``` precisam ser resolvidas aqui.
 
-  As Controllers são responsáveis por invocar e resolver as promises retornadas pelas ```Models```.
+  De modo geral: 
+  + As Controllers são responsáveis por invocar e resolver as promises retornadas pelas ```Models```.
 
   Todos os metodos das ```Controllers``` devem receber dois parametros
   + req
@@ -143,40 +140,38 @@ Estrutura do ViniciusKleber.Js
 
   A classe ```BaseController``` tem a função de classe abstrata e não deve se tornar um objeto concreto.
   
-  #### Exemplo de Uso
-
-
-  ``` zsh
+   #### Exemplo de Uso
+  ```javascript
     'use strict';
     import BaseController from './Base.Controller'
     import Exemple from '../models/Exemple.Model'
 
-    # Model operations to Student
+    // Model operations to Student
 
-    # Because this class extends to Controller we inherit from then all the basics data Operations.
-    # More specifcs RESOURCES CONTROL OPERATIONS should be implemented here
+    // Because this class extends to Controller we inherit from then all the basics data Operations.
+    // More specifcs RESOURCES CONTROL OPERATIONS should be implemented here
     export default class ExempleController extends BaseController {
       
-       # pass the model this class will map 
-       # to our parent class (Basecontroller)
+ // pass the model this class will map 
+ // to our parent class (Basecontroller)
       
       constructor() {
         
-          # Calling the constructor from the parent class
-          # and pass to him all the config that him needs to work
+    // Calling the constructor from the parent class
+    // and pass to him all the config that him needs to work
 
-          # so ... magic, your crud its done :3
-          # try with another mongooseSchema, will work,
+    // so ... magic, your crud its done :3
+    // try with another mongooseSchema, will work,
           
-          # if its dont make sense map a mongooseSchema to 
-          # a resource controller just dont override the constructor method
-          # this open the possibility to bring another resources controllers(BookController, # ChapterController)
-          # and compose one operation with them together
+    // if its dont make sense map a mongooseSchema to 
+    // a resource controller just dont override the constructor method
+    // this open the possibility to bring another resources controllers(BookController, # ChapterController)
+    // and compose one operation with them together
         
         super(User)
       }
 
-      # find model by name -> not covered by basic operations
+// find model by name -> not covered by basic operations
       getByName (req, res) {
 
         let query = {
@@ -199,7 +194,7 @@ Estrutura do ViniciusKleber.Js
         })
       }
   ```
-  
+
   #### Controller API 
   - Stable:
     + save(req, res)
@@ -211,60 +206,7 @@ Estrutura do ViniciusKleber.Js
     + deleteById()
       * resolve a promise que irá modificar os dados pelo ID e retorna o obj salvo pra requisição
   
-  #### Exemplo de Uso
-  ``` zsh
-    'use strict';
-    import BaseController from './Base.Controller'
-    import Exemple from '../models/Exemple.Model'
-
-    # Model operations to Student
-
-    # Because this class extends to Controller we inherit from then all the basics data Operations.
-    # More specifcs RESOURCES CONTROL OPERATIONS should be implemented here
-    export default class ExempleController extends BaseController {
-      
-       # pass the model this class will map 
-       # to our parent class (Basecontroller)
-      
-      constructor() {
-        
-          # Calling the constructor from the parent class
-          # and pass to him all the config that him needs to work
-
-          # so ... magic, your crud its done :3
-          # try with another mongooseSchema, will work,
-          
-          # if its dont make sense map a mongooseSchema to 
-          # a resource controller just dont override the constructor method
-          # this open the possibility to bring another resources controllers(BookController, # ChapterController)
-          # and compose one operation with them together
-        
-        super(User)
-      }
-
-      # find model by name -> not covered by basic operations
-      getByName (req, res) {
-
-        let data = {
-          name: req.params.name
-        }
-
-        let exemplePromise = new 
-        Exemple(data).getByField();
-        
-        Promise.all([
-          exemplePromise
-        ]).then((data) => {
-          if(data) {
-            res.send(data[0])
-            res.status(200);
-            res.end()
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      }
-  ```
+  
 * * *
 ### Routes
   Dentro dos arquivos de rotas é onde instanciamos um objeto do tipo ```Controller```.
@@ -274,17 +216,17 @@ Estrutura do ViniciusKleber.Js
   Como estamos estânciando um objeto do tipo ```Controller``` a API padrão bem como metodos adicionais oferecidos pelo ```RESOURCE``` ficam expostas para uso;
 
   #### Exemplo de Uso
-  ``` zsh
-    # import resorce controller
+  ``` javascript
+    // import resorce controller
     import Exemple from '../controllers/Exemple.Controller'
 
-    # express.Router()
+    // express.Router()
     let router = express.Router()
 
-    # insance of resource controller
+    // insance of resource controller
     let ex = new Exemple()
 
-    # basic api exposed by default -> to add more look the exemple in session Controllers 
+    // basic api exposed by default -> to add more look the exemple in session Controllers 
     router.post('/', (req, res) => {
       ex.save(req, res)
     })
@@ -323,14 +265,9 @@ Estrutura do ViniciusKleber.Js
 
 ``` git clone git@github.com:luandryl/vinicius-kleber.js.git```
 
-### Processo de Desenvolvimento
-
 * * *
-### Processo de Construção(Build)
 
-Em breve ...
-* * *
-### Processo de Testes(Build)
+### Processo de Testes
 
 ``` bash
 # Clone o repositório git@github.com:luandryl/vinicius-kleber.js.git
